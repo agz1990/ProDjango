@@ -2,9 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Search</title>
 </head>
 <body>
-
+  <form method="get" action="/search/">
+      <p>
+          <label for="id_q">Search:</label>
+          <input type="text" name="q" id="id_q" value="{{ query }}" />
+          <input type="submit" value="Submit" />
+      </p>
+  </form>
+  {% if keyword_results or results %}
+    <p>You Searched for "{{ query }}"; the result are listed below.</p>
+      {% if keyword_results %}
+          <p>Recommended pages:</p>
+          <ul>
+            {% for page in keyword_results %}
+                <li><a href="{{ page.get_absolute_url }}">{{ page.title }}</a> </li>
+            {% endfor %}
+          </ul>
+      {% endif %}
+      {% if results %}
+        <ul>
+            {% for page in results %}
+                <li><a href="{{ page.get_absolute_url }}">{{ page.title }}</a> </li>
+            {% endfor %}
+        </ul>
+      {% else %}
+        {% if query %}
+          <p>No results Founds. </p>
+        {% else %}
+          <p>Type a search query into the box above, and press "Submit" to search</p>
+        {% endif %}
+      {% endif %}
+{% endif %}
 </body>
 </html>
