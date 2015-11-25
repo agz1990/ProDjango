@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.TINY_MCE_ROOT}),
+    url(r'weblog/$', 'coltrane.views.entries_index'),
     url(r'^search/$', 'search.views.search'),
     url(r'', include('django.contrib.flatpages.urls')),
 
