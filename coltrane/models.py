@@ -67,5 +67,12 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/weblog/%s/%s/" % (self.pub_date.strftime("%Y/%m/%d").lower(), self.slug)
+        return ('coltrane_entry_detail', (), {
+            'year': self.pub_date.strftime('%Y'),
+            'month': self.pub_date.strftime('%m'),
+            'day': self.pub_date.strftime('%d'),
+            'slug': self.slug
+        })
+    # get_absolute_url = models.permalink(get_absolute_url)
