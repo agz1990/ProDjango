@@ -75,4 +75,46 @@ class Entry(models.Model):
             'day': self.pub_date.strftime('%d'),
             'slug': self.slug
         })
-    # get_absolute_url = models.permalink(get_absolute_url)
+
+class Link(models.Model):
+    title = models.CharField(max_length=250)
+    description = models.TextField()
+    description_html = models.TextField(editable=False, blank=True)
+    via_name = models.CharField('Via', max_length=250, blank=True,
+                                help_text='The name of the person whose site you spotted the link On')
+    url = models.URLField(unique=True)
+
+    post_by = models.ForeignKey(User)
+    pub_date = models.DateField(default=datetime.datetime.now)
+    slug = models.SlugField(unique_for_date='pub_date')
+
+    tags = TagField(help_text="Seprate tags with spaces")
+
+    enable_comments = models.BooleanField(default=True)
+    post_elsewhere = models.BooleanField('Post to Delicious', default=True)
+
+    class Meta:
+        ordering = ['-pub_date']
+
+    def save(self, force_insert=False, force_update=False):
+        if self.description:
+            self.description_html = markdown(self.description)
+
+        # if not self.id and self.post_elsewhere:
+        #     print(u'Post %s to some where.' % self.title)
+
+        super(Link, self).save(force_insert, force_update)
+
+    def __unicode__(self):
+        self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('coltrane_link_detail', (), {
+            'year': self.pub_date.strftime('%Y'),
+            'month': self.pub_date.strftime('%m'),
+            'day': self.pub_date.strftime('%d'),
+            'slug': self.slug
+        })
+
+

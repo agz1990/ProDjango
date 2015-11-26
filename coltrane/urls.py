@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
 from django.views import generic
-from coltrane.models import Entry
+from coltrane.models import Entry, Link
 
 entry_info_dict = {
     'date_field': 'pub_date',
@@ -25,10 +25,25 @@ entry_info_dict = {
     'month_format': '%m',
 }
 
+link_info_dict = {
+    'date_field': 'pub_date',
+    'queryset': Link.objects.all(),
+    'month_format': '%m',
+}
+
 urlpatterns = [
-    url(r'^$', generic.ArchiveIndexView.as_view(queryset=Entry.objects.all(), date_field='pub_date')),
+
+    # For entry
+    url(r'^$', generic.ArchiveIndexView.as_view(queryset=Entry.objects.all(), date_field='pub_date', allow_empty=True)),
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$',
         generic.MonthArchiveView.as_view(**entry_info_dict)),
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
         generic.DateDetailView.as_view(**entry_info_dict), name='coltrane_entry_detail'),
+
+    # For links
+    url(r'^links/$', generic.ArchiveIndexView.as_view(queryset=Link.objects.all(), date_field='pub_date', allow_empty=True)),
+    url(r'^links/(?P<year>\d{4})/(?P<month>\d{2})/$',
+        generic.MonthArchiveView.as_view(**link_info_dict)),
+    url(r'^links/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',
+        generic.DateDetailView.as_view(**link_info_dict), name='coltrane_link_detail'),
 ]

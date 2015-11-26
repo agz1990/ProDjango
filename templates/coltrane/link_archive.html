@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Links index</title>
+</head>
+<body>
+  <h1>Entries index</h1>
+    {% for link in object_list %}
+        <h2>{{ link.title }}</h2>
+        <p>Published on {{ link.pub_date|date:"F j, Y" }}</p>
+        {{ enrty.body_html|truncatewords_html:"50"|safe }}
+        <p><a href="{{ link.get_absolute_url }}">Read full link</a> </p>
+    {% endfor %}
+</body>
+</html>
