@@ -2,7 +2,7 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from markdown import markdown
-from  tagging.fields import TagField
+from tagging.fields import TagField
 
 # Create your models here.
 class Category(models.Model):
@@ -68,4 +68,4 @@ class Entry(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return "/weblog/%s/%s/" % (self.pub_date.strftime("%Y/%b/%d").lower(), self.slug)
+        return "/weblog/%s/%s/" % (self.pub_date.strftime("%Y/%m/%d").lower(), self.slug)
