@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catrgories index</title>
+</head>
+<body>
+  <h1>Entries index</h1>
+    {% for object in object_list %}
+        <h2>{{ object.title }}</h2>
+        {% if object.descripting %}
+            {{ object.descripting|safe }}
+        {% endif %}
+        <p><a href="{{ object.get_absolute_url }}">Read full Catrgory</a> </p>
+    {% endfor %}
+</body>
+</html>

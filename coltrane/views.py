@@ -1,6 +1,8 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.views import generic
-from models import Entry
+from django_filters.views import object_filter
+
+from models import Category, Entry
 
 # Create your views here.
 def entries_index(request):
@@ -24,3 +26,12 @@ def entry_detail(request, year, month, day, slug):
 
     return render_to_response('coltrane/entry_detail.html',
                               {'entry': entry})
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+
+    return object_filter(request,
+                         model=Entry,
+                         template_name='coltrane/category_detail.html',
+                         queryset=category.entry_set.all(),
+                         extra_context={'category': category})

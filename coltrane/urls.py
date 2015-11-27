@@ -17,7 +17,8 @@ from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
 from django.views import generic
-from coltrane.models import Entry, Link
+from .models import Category,Entry, Link
+from .views import category_detail
 
 entry_info_dict = {
     'date_field': 'pub_date',
@@ -33,8 +34,20 @@ link_info_dict = {
 
 urlpatterns = [
 
+    # For Categories
+    url(r'categories/$', generic.ListView.as_view(
+        queryset=Category.objects.all(),
+        allow_empty=True,
+    )),
+
+    url(r'categories/(?P<slug>[-_\w]+)/$', category_detail, name='coltrane_category_detail'),
+
     # For entry
-    url(r'^$', generic.ArchiveIndexView.as_view(queryset=Entry.objects.all(), date_field='pub_date', allow_empty=True)),
+    url(r'^$', generic.ArchiveIndexView.as_view(
+        queryset=Entry.objects.all(),
+        date_field='pub_date',
+        allow_empty=True)),
+
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$',
         generic.MonthArchiveView.as_view(**entry_info_dict)),
     url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$',

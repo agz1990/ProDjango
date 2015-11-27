@@ -18,8 +18,9 @@ class Category(models.Model):
     def __unicode__(self):
         return self.title
 
+    @models.permalink
     def get_absolute_url(self):
-        return "/categories/%s/" % self.slug
+        return ('coltrane_category_detail',(),{'slug': self.slug})
 
 class Entry(models.Model):
     LIVE_STATUS = 1
@@ -96,6 +97,7 @@ class Link(models.Model):
     class Meta:
         ordering = ['-pub_date']
 
+    # TODO fix unicode bug
     def save(self, force_insert=False, force_update=False):
         if self.description:
             self.description_html = markdown(self.description)
