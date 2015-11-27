@@ -20,7 +20,7 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('coltrane_category_detail',(),{'slug': self.slug})
+        return ('weblog:category_detail',(),{'slug': self.slug})
 
 class Entry(models.Model):
     LIVE_STATUS = 1
@@ -70,7 +70,7 @@ class Entry(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('coltrane_entry_detail', (), {
+        return ('weblog:entry_detail', (), {
             'year': self.pub_date.strftime('%Y'),
             'month': self.pub_date.strftime('%m'),
             'day': self.pub_date.strftime('%d'),
@@ -112,7 +112,7 @@ class Link(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('coltrane_link_detail', (), {
+        return ('weblog:link_detail', (), {
             'year': self.pub_date.strftime('%Y'),
             'month': self.pub_date.strftime('%m'),
             'day': self.pub_date.strftime('%d'),
