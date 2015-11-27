@@ -4,17 +4,17 @@ from django_filters.views import object_filter
 
 from models import Category, Entry
 
+
 # Create your views here.
 def entries_index(request):
-
     return render_to_response('coltrane/entry_archive.html',
                               {'entry_list': Entry.objects.all()})
 
-def entry_detail(request, year, month, day, slug):
 
+def entry_detail(request, year, month, day, slug):
     import datetime
     import time
-    date_stamp = time.strptime(year+month+day, "%Y%m%d")
+    date_stamp = time.strptime(year + month + day, "%Y%m%d")
     pub_data = datetime.date(*date_stamp[:3])
 
     entry = get_object_or_404(Entry,
@@ -23,9 +23,9 @@ def entry_detail(request, year, month, day, slug):
                               pub_date__day=pub_data.day,
                               slug=slug)
 
-
     return render_to_response('coltrane/entry_detail.html',
                               {'entry': entry})
+
 
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)

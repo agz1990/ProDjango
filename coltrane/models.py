@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from markdown import markdown
 from tagging.fields import TagField
 
+
 # Create your models here.
 class Category(models.Model):
     title = models.CharField(max_length=250, help_text='Maxinum 250 characters.')
@@ -20,7 +21,8 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('weblog:category_detail',(),{'slug': self.slug})
+        return ('weblog:category_detail', (), {'slug': self.slug})
+
 
 class Entry(models.Model):
     LIVE_STATUS = 1
@@ -77,6 +79,7 @@ class Entry(models.Model):
             'slug': self.slug
         })
 
+
 class Link(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
@@ -118,5 +121,3 @@ class Link(models.Model):
             'day': self.pub_date.strftime('%d'),
             'slug': self.slug
         })
-
-
