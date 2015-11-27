@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'django_comments',
+    'django_markup',
     'tagging',
     'coltrane',
     'search',

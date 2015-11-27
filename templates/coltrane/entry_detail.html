@@ -5,7 +5,14 @@
 {% block content %}
 <h2>{{ object.title }}</h2>
 {{ object.body_html|safe }}
+
+<h2>Post a Comment</h2>
+{% load comments %}
+{% render_comment_form for object %}
+
 {% endblock %}
+
+
 
 {% block whatis %}
     <p>This is an entry posted to my blog on {{ object.pub_date|date:"F j,Y" }}.</p>

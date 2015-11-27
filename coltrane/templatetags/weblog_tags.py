@@ -3,6 +3,7 @@ from django.db.models import get_model
 
 register = template.Library()
 
+
 class LatestContentNode(template.Node):
     def __init__(self, model, num, varname):
         self.model = model
