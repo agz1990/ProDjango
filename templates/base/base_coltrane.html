@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Weblog {% block title %}{% endblock %}</title>
+</head>
+<body class="{% block bdoyclass %}{% endblock %}">
+<div id="header">
+    <h1 id="branding">My weblog</h1>
+</div>
+<div id="content"></div>
+    {% block content %}
+    {% endblock %}
+<div id="sidebar">
+    <h2>Navigation</h2>
+    <ul id="main-nav">
+        <li id="main-nav-entries">
+            <a href="{% url 'weblog:entry_archive_index'   %}">Entries</a>
+        </li>
+        <li id="main-nav-links">
+            <a href="{% url 'weblog:link_list' %}">Links</a>
+        </li>
+{#        <li id="main-nav-categories">#}
+{#            <a href="{% url weblog:entry_detailcategory_list %}">Catrgories</a>#}
+{#        </li>#}
+{#        <li id="main-nav-tags">#}
+{#            <a href="{% url weblog:entry_detailtags_list %}">Tags</a>#}
+{#        </li>#}
+    </ul>
+    <h2>What is this?</h2>
+    {% block whatis %}
+    {% endblock %}
+</div>
+</body>
+</html>

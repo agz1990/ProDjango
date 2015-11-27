@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ object.title }}</title>
-</head>
-<body>
-    <h1>{{ object.title }}</h1>
-    {{ link.description_html | safe }}
-</body>
-</html>
+{% extends 'coltrane/../base/base_coltrane.html' %}
+
+{% block content %}
+{{ object.description|safe }}
+    <p><a href="{{ object.url }}">Vist site.</a></p>
+{% endblock %}

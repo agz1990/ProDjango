@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ object.title }}</title>
-</head>
-<body>
-    <h1>{{ object.title }}</h1>
-    {{ object.body_html | safe }}
-</body>
-</html>
+{% extends 'coltrane/../base/base_coltrane.html' %}
+
+{% block content %}
+{{ object.body_html|safe }}
+{% endblock %}
